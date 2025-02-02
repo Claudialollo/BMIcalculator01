@@ -26,8 +26,12 @@
         <button type="submit">Calcola BMI</button>
     </form>
 
-    {% if bmi is defined %}
-    <h3>Il tuo BMI predetto è: {{ bmi|round(2) }}</h3>
+    {% if bmi is not none %}
+        <h3>Il tuo BMI predetto è: {{ bmi|round(2) }}</h3>
+    {% else %}
+        <h3>Inserisci i dati per calcolare il BMI.</h3>
+    {% endif %}
+
 
     <h4>Classificazione BMI:</h4>
     <table border="1">
