@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predittore di BMI</title>
+</head>
+<body>
+    <h2>Calcola il tuo BMI</h2>
+    <form method="post">
+        <label>Peso (kg):</label>
+        <input type="number" name="peso" step="0.1" required><br><br>
+
+        <label>Altezza (m):</label>
+        <input type="number" name="altezza" step="0.01" required><br><br>
+
+        <label>Età:</label>
+        <input type="number" name="eta" required><br><br>
+
+        <label>Sesso:</label>
+        <select name="sesso" required>
+            <option value="0">Femmina</option>
+            <option value="1">Maschio</option>
+        </select><br><br>
+
+        <button type="submit">Calcola BMI</button>
+    </form>
+
+    {% if bmi is defined %}
+    <h3>Il tuo BMI predetto è: {{ bmi|round(2) }}</h3>
+
+    <h4>Classificazione BMI:</h4>
+    <table border="1">
+        <tr>
+            <th>Categoria</th>
+            <th>Intervallo BMI</th>
+        </tr>
+        <tr {% if bmi < 18.5 %} style="background-color: #ADD8E6;" {% endif %}>
+            <td>Sottopeso</td>
+            <td>&lt; 18.5</td>
+        </tr>
+        <tr {% if 18.5 <= bmi < 24.9 %} style="background-color: #90EE90;" {% endif %}>
+            <td>Normopeso</td>
+            <td>18.5 - 24.9</td>
+        </tr>
+        <tr {% if 25 <= bmi < 29.9 %} style="background-color: #FFD700;" {% endif %}>
+            <td>Sovrappeso</td>
+            <td>25 - 29.9</td>
+        </tr>
+        <tr {% if bmi >= 30 %} style="background-color: #FF6347;" {% endif %}>
+            <td>Obesità</td>
+            <td>&gt;= 30</td>
+        </tr>
+    </table>
+{% endif %}
+
+</body>
+</html>
