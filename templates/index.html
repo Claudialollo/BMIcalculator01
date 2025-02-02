@@ -4,57 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predittore di BMI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            width: 100%;
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #000000;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: black;
+            font-weight: bold;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .bmi-category {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .underweight { background-color: #ADD8E6; }
+        .normal { background-color: #90EE90; }
+        .overweight { background-color: #FFD700; }
+        .obese { background-color: #FF6347; }
+
+        .reminder {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            font-style: italic;
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+    </style>
 </head>
 <body>
     <h2>Calcola il tuo BMI</h2>
     <form method="post">
         <label>Peso (kg):</label>
-        <input type="number" name="peso" step="0.1" required><br><br>
+        <input type="number" name="peso" step="0.1" required>
 
         <label>Altezza (m):</label>
-        <input type="number" name="altezza" step="0.01" required><br><br>
+        <input type="number" name="altezza" step="0.01" required>
 
         <label>Età:</label>
-        <input type="number" name="eta" required><br><br>
+        <input type="number" name="eta" required>
 
         <label>Sesso:</label>
         <select name="sesso" required>
             <option value="0">Femmina</option>
             <option value="1">Maschio</option>
-        </select><br><br>
+        </select>
 
         <button type="submit">Calcola BMI</button>
     </form>
 
     {% if bmi is not none %}
-        <h3>Il tuo BMI predetto è: {{ bmi|round(2) }}</h3>
+        <div class="result">
+            <h3>Il tuo BMI predetto è: {{ bmi|round(2) }}</h3>
+            <div class="bmi-category
+                {% if bmi < 18.5 %} underweight {% elif bmi < 25 %} normal {% elif bmi < 30 %} overweight {% else %} obese {% endif %}">
+                {% if bmi < 18.5 %}
+                    Sottopeso
+                {% elif bmi < 25 %}
+                    Normopeso
+                {% elif bmi < 30 %}
+                    Sovrappeso
+                {% else %}
+                    Obesità
+                {% endif %}
+            </div>
 
-        <h4>Classificazione BMI:</h4>
-        <table border="1">
-            <tr>
-                <th>Categoria</th>
-                <th>Intervallo BMI</th>
-            </tr>
-            <tr {% if bmi < 18.5 %} style="background-color: #ADD8E6;" {% endif %}>
-                <td>Sottopeso</td>
-                <td>&lt; 18.5</td>
-            </tr>
-            <tr {% if bmi >= 18.5 and bmi < 25 %} style="background-color: #90EE90;" {% endif %}>
-                <td>Normopeso</td>
-                <td>18.5 - 24.9</td>
-            </tr>
-            <tr {% if bmi >= 25 and bmi < 30 %} style="background-color: #FFD700;" {% endif %}>
-                <td>Sovrappeso</td>
-                <td>25 - 29.9</td>
-            </tr>
-            <tr {% if bmi >= 30 %} style="background-color: #FF6347;" {% endif %}>
-                <td>Obesità</td>
-                <td>&gt;= 30</td>
-            </tr>
-        </table>
-    {% else %}
-        <h3>Inserisci i dati per calcolare il BMI.</h3>
+            <!-- Gentle Reminder -->
+            <div class="reminder">
+                {% if bmi < 18.5 %}
+                    Assicurati di mantenere una dieta equilibrata e consulta un nutrizionista se necessario. 💡
+                {% elif bmi < 25 %}
+                    Ottimo! Continua a mantenere uno stile di vita sano ed equilibrato. 💪
+                {% elif bmi < 30 %}
+                    Un'alimentazione sana e l'attività fisica regolare possono aiutarti a migliorare il tuo benessere. 🏃‍♂️
+                {% else %}
+                    Parlare con un professionista della salute può essere utile per trovare il miglior piano di benessere per te. ❤️
+                {% endif %}
+            </div>
+        </div>
     {% endif %}
-
 </body>
 </html>
+
+
+  
