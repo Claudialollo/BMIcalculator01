@@ -26,8 +26,8 @@ def index():
 
             # Facciamo la previsione
             bmi_pred = model.predict(dati_utente)[0]
-        except:
-            bmi_pred = "Errore nei dati inseriti"
+        except Exception as e: 
+            bmi_pred = None 
 
     return render_template("index.html", bmi=bmi_pred)
 
