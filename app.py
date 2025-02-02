@@ -9,6 +9,15 @@ app = Flask(__name__, template_folder="templates")
 with open("model.pkl", "rb") as file:
     model = pickle.load(file)
 
+# Funzione per convertire peso e altezza
+def convert_units(peso, unita_peso, altezza, unita_altezza):
+    if unita_peso == "lbs":
+        peso = peso * 0.453592  # Converti lbs in kg
+    if unita_altezza == "cm":
+        altezza = altezza / 100  # Converti cm in metri
+    return peso, altezza
+
+
 # Pagina principale con il form HTML
 @app.route("/", methods=["GET", "POST"])
 def index():
