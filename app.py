@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 
 # Creiamo l'app Flask
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 
 # Carichiamo il modello salvato
 with open("model.pkl", "rb") as file:
