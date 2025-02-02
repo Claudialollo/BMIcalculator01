@@ -98,12 +98,20 @@
 <body>
     <h2>Calcola il tuo BMI</h2>
     <form method="post">
-        <label>Peso (kg):</label>
+        <label>Peso:</label>
         <input type="number" name="peso" step="0.1" required>
-
-        <label>Altezza (m):</label>
+         <select name="unita_peso">
+            <option value="kg">kg</option>
+            <option value="lbs">lbs</option>
+        </select>
+        
+        <label>Altezza:</label>
         <input type="number" name="altezza" step="0.01" required>
-
+        <select name="unita_altezza">
+            <option value="m">m</option>
+            <option value="cm">cm</option>
+        </select>
+        
         <label>Età:</label>
         <input type="number" name="eta" required>
 
@@ -135,13 +143,13 @@
             <!-- Gentle Reminder -->
             <div class="reminder">
                 {% if bmi < 18.5 %}
-                    Assicurati di mantenere una dieta equilibrata e consulta un nutrizionista se necessario. 💡
+                    Il tuo corpo ha bisogno di energia e cura per funzionare al meglio. Nutrilo con amore e attenzione, e non aver paura di chiedere supporto per trovare il giusto equilibrio. Il benessere è una combinazione di forza, salute e serenità, e tu meriti di sentirti al meglio ogni giorno.
                 {% elif bmi < 25 %}
-                    Foizza!! Continua così… 💪🏼
+                    Stai mantenendo un buon equilibrio! Continua a prenderti cura di te con un’alimentazione sana e uno stile di vita attivo. Il benessere è un viaggio, non una destinazione.
                 {% elif bmi < 30 %}
-                    Un'alimentazione sana e l'attività fisica regolare possono aiutarti a migliorare il tuo benessere. 🏃‍♂️
+                    l tuo corpo è il tuo compagno di vita, trattalo con rispetto e ascoltalo. Piccoli passi verso uno stile di vita sano possono fare una grande differenza nel tempo!
                 {% else %}
-                    Parlare con un professionista della salute può essere utile per trovare il miglior piano di benessere per te. ❤️
+                    Il benessere non è solo un numero, ma un percorso fatto di consapevolezza e cura di sé. Ogni giorno è un’opportunità per fare qualcosa di buono per il tuo corpo e la tua mente. Non sei solo in questo cammino.❤️
                 {% endif %}
             </div>
         </div>
